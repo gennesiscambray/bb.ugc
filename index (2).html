@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BB Bibiana · UGC Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:     #111008;
+    --bg2:    #161409;
+    --bg3:    #1e1b10;
+    --text:   #e2ddd4;
+    --muted:  #6b6658;
+    --red:    #7a1c24;
+    --red2:   #9b2530;
+    --border: rgba(255,255,255,0.07);
+    --serif:  'Cormorant Garamond', Georgia, serif;
+    --sans:   'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--bg2);
+    padding: 32px 28px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
+  }
+
+  /* big dark red star top right */
+  .hero-star {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 220px;
+    color: var(--red);
+    opacity: 0.55;
+    line-height: 1;
+    pointer-events: none;
+    font-family: serif;
+    z-index: 0;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .hero-bb {
+    font-family: var(--serif);
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 0.9;
+    color: var(--text);
+    letter-spacing: 1px;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text);
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+    display: block;
+  }
+
+  .hero-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .hero-left { flex: 1; }
+
+  .hero-tagline {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(226,221,212,0.6);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    max-width: 200px;
+  }
+
+  .hero-loc {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: 0.04em;
+    margin-bottom: 24px;
+  }
+
+  .loc-pin {
+    width: 12px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* hero photo — floats right in upper area */
+  .hero-photo-wrap {
+    flex-shrink: 0;
+    width: 160px;
+    align-self: stretch;
+    position: relative;
+  }
+
+  .hero-photo {
+    width: 160px;
+    height: 200px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    border-radius: 2px;
+  }
+
+  .hero-photo-placeholder {
+    width: 160px;
+    height: 200px;
+    background: var(--bg3);
+    border: 1px dashed rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    border-radius: 2px;
+  }
+
+  /* ── SECTION CHROME ── */
+  .sec {
+    padding: 44px 28px;
+  }
+  .sec + .sec {
+    border-top: 1px solid var(--border);
+  }
+
+  .sec-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .sec-eyebrow-text {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .sec-eyebrow-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .sec-title {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.05;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .about-photo {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 2px;
+    display: block;
+  }
+
+  .about-photo-placeholder {
+    width: 120px;
+    height: 150px;
+    background: var(--bg3);
+    border: 1px dashed rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    text-align: center;
+    border-radius: 2px;
+  }
+
+  .about-text blockquote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .about-text p {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(226,221,212,0.55);
+    line-height: 1.75;
+  }
+
+  /* ── EXPERTISE ── */
+  .expertise-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+    margin-bottom: 24px;
+  }
+
+  .expertise-col-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--red2);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .expertise-strategy {
+    margin-top: 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .expertise-strategy-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .expertise-strategy-center .expertise-col-label {
+    text-align: center;
+  }
+
+  .expertise-strategy-center .tags {
+    justify-content: center;
+  }
+
+  /* ── VIDEO SECTION ── */
+  .video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .vid-item { display: flex; flex-direction: column; gap: 6px; }
+
+  .vid-cat-label {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(226,221,212,0.6);
+    font-family: var(--serif);
+    font-style: italic;
+    letter-spacing: 0.03em;
+  }
+
+  /* phone mockup shell */
+  .phone {
+    background: #0a0a08;
+    border-radius: 28px;
+    border: 2px solid #2e2c24;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 9 / 19;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 20px;
+    background: #0a0a08;
+    border-radius: 0 0 12px 12px;
+    z-index: 10;
+  }
+
+  .phone video,
+  .phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .phone-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--muted);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .phone-play {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1.5px solid var(--red2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .phone-play::after {
+    content: '';
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 7px 0 7px 13px;
+    border-color: transparent transparent transparent var(--red2);
+    margin-left: 3px;
+  }
+
+  .phone-filename {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
+  /* phone bottom bar */
+  .phone-bar {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 99px;
+    z-index: 10;
+  }
+
+  /* ── PHOTO GRID ── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 8px;
+  }
+
+  .photo-grid img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 3px;
+    display: block;
+    transition: opacity 0.2s;
+  }
+  .photo-grid img:hover { opacity: 0.8; }
+
+  .photo-placeholder {
+    aspect-ratio: 1;
+    background: var(--bg3);
+    border: 1px dashed rgba(255,255,255,0.08);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 8px;
+    line-height: 1.5;
+  }
+
+  /* ── CONTACT ── */
+  .contact-sec {
+    padding: 44px 28px 56px;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s;
+  }
+  .contact-link:hover { opacity: 0.75; }
+
+  .contact-icon-circle {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  /* coloured circle backgrounds matching Canva */
+  .icon-ig  { background: radial-gradient(circle at 30% 110%, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); }
+  .icon-tk  { background: #010101; }
+  .icon-gm  { background: #fff; }
+
+  .contact-icon-circle svg {
+    width: 22px; height: 22px;
+    display: block;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 1px; }
+
+  .contact-platform {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contact-handle {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--red2);
+    letter-spacing: 0.02em;
+    font-family: var(--serif);
+    font-style: italic;
+  }
+
+  /* ── CONTACT EYEBROW (reuse sec-eyebrow but inside contact) ── */
+  .work-together-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .work-together-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .contact-title {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.05;
+    margin-bottom: 6px;
+  }
+
+  .contact-sub {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero">
+  <div class="hero-star">★</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">UGC Creator</div>
+    <div class="hero-bb">BB</div>
+    <span class="hero-name">Bibiana</span>
+
+    <div class="hero-body">
+      <div class="hero-left">
+        <p class="hero-tagline">Fashion, beauty &amp; lifestyle content creator specializing in digital marketing, SEO, and social strategy.</p>
+        <div class="hero-loc">
+          <!-- pin icon -->
+          <svg class="loc-pin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="rgba(226,221,212,0.5)"/>
+          </svg>
+          Salt Lake City, UT
+        </div>
+      </div>
+
+      <!--
+        ★ YOUR HERO PHOTO:
+           Replace the placeholder below with:
+           <img class="hero-photo" src="images/hero.jpg" alt="Bibiana">
+      -->
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-placeholder">
+          Your photo<br>here
+          <span style="font-size:8px;opacity:0.4;margin-top:3px;">images/hero.jpg</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     ABOUT ME
+══════════════════════════════ -->
+<section class="sec reveal">
+  <div class="sec-eyebrow">
+    <span class="sec-eyebrow-text">About me</span>
+    <div class="sec-eyebrow-line"></div>
+  </div>
+  <div class="sec-title">About me</div>
+
+  <div class="about-grid">
+    <!--
+      ★ YOUR ABOUT PHOTO:
+         Replace with: <img class="about-photo" src="images/about.jpg" alt="Bibiana">
+    -->
+    <div class="about-photo-placeholder">
+      Your photo<br>here
+      <span style="font-size:8px;opacity:0.4;margin-top:3px;">images/about.jpg</span>
+    </div>
+
+    <div class="about-text">
+      <blockquote>"Creative-first, data-driven always."</blockquote>
+      <p>I am a Latina content creator based in Salt Lake City, Utah, who is passionate about fashion, beauty, self care, and wellness. I am an aspiring digital marketer with a foundational understanding of SEO, social media marketing, and Google Ads. I bring a creative approach to exciting and executing digital strategies. I'm passionate about learning and staying current with industry trends — open to new challenges and dedicated to driving impactful results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     AREAS OF EXPERTISE
+══════════════════════════════ -->
+<section class="sec reveal">
+  <div class="sec-eyebrow">
+    <span class="sec-eyebrow-text">What I do</span>
+    <div class="sec-eyebrow-line"></div>
+  </div>
+  <div class="sec-title">Areas of expertise</div>
+
+  <!-- Two-column: Digital Marketing + Platforms -->
+  <div class="expertise-cols">
+    <div>
+      <div class="expertise-col-label">Digital Marketing</div>
+      <div class="tags" style="flex-direction:column; align-items:flex-start;">
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span class="tag">SEO</span>
+          <span class="tag">Google Ads</span>
+        </div>
+        <span class="tag">Content Strategy</span>
+        <span class="tag">Social Media Marketing</span>
+      </div>
+    </div>
+    <div>
+      <div class="expertise-col-label">Platforms &amp; Channels</div>
+      <div class="tags" style="flex-direction:column; align-items:flex-start; gap:7px;">
+        <span class="tag">TikTok</span>
+        <span class="tag">Pinterest</span>
+        <span class="tag">Instagram</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategy row centered -->
+  <div class="expertise-strategy">
+    <div class="expertise-strategy-center">
+      <div class="expertise-col-label">Strategy &amp; Planning</div>
+      <div class="tags" style="justify-content:center;">
+        <span class="tag">Trend Research</span>
+        <span class="tag">Audience Analysis</span>
+        <span class="tag">Brand Positioning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     VIDEO EXAMPLES
+══════════════════════════════ -->
+<section class="sec reveal">
+  <div class="sec-eyebrow">
+    <span class="sec-eyebrow-text">My work</span>
+    <div class="sec-eyebrow-line"></div>
+  </div>
+  <div class="sec-title">Video examples</div>
+
+  <div class="video-grid">
+
+    <!--
+      ★ HOW TO ADD YOUR VIDEOS:
+         1. Create a "videos/" folder in your GitHub repo
+         2. Upload your .mp4 files there
+         3. Replace each <div class="phone-placeholder"> with:
+            <video src="videos/fashion.mp4" controls playsinline></video>
+         Keep files under 100MB. Use HandBrake (free) to compress if needed.
+    -->
+
+    <div class="vid-item">
+      <span class="vid-cat-label">Fashion</span>
+      <div class="phone">
+        <div class="phone-placeholder">
+          <div class="phone-play"></div>
+          <span class="phone-filename">videos/fashion.mp4</span>
+        </div>
+        <div class="phone-bar"></div>
+      </div>
+    </div>
+
+    <div class="vid-item">
+      <span class="vid-cat-label">Stationery</span>
+      <div class="phone">
+        <div class="phone-placeholder">
+          <div class="phone-play"></div>
+          <span class="phone-filename">videos/stationery.mp4</span>
+        </div>
+        <div class="phone-bar"></div>
+      </div>
+    </div>
+
+    <div class="vid-item">
+      <span class="vid-cat-label">Electronics</span>
+      <div class="phone">
+        <div class="phone-placeholder">
+          <div class="phone-play"></div>
+          <span class="phone-filename">videos/electronics.mp4</span>
+        </div>
+        <div class="phone-bar"></div>
+      </div>
+    </div>
+
+    <div class="vid-item">
+      <span class="vid-cat-label">Fitness</span>
+      <div class="phone">
+        <div class="phone-placeholder">
+          <div class="phone-play"></div>
+          <span class="phone-filename">videos/fitness.mp4</span>
+        </div>
+        <div class="phone-bar"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     PHOTO EXAMPLES
+══════════════════════════════ -->
+<section class="sec reveal">
+  <div class="sec-eyebrow">
+    <span class="sec-eyebrow-text">Photography</span>
+    <div class="sec-eyebrow-line"></div>
+  </div>
+  <div class="sec-title">Photo examples</div>
+
+  <div class="photo-grid">
+    <!--
+      ★ HOW TO ADD YOUR PHOTOS:
+         Replace each placeholder with an <img> tag, e.g.:
+         <img src="images/photo1.jpg" alt="Photo example">
+         Add as many as you like — the grid auto-fills in rows of 3.
+    -->
+    <div class="photo-placeholder">images/<br>photo1.jpg</div>
+    <div class="photo-placeholder">images/<br>photo2.jpg</div>
+    <div class="photo-placeholder">images/<br>photo3.jpg</div>
+    <div class="photo-placeholder">images/<br>photo4.jpg</div>
+    <div class="photo-placeholder">images/<br>photo5.jpg</div>
+    <div class="photo-placeholder">images/<br>photo6.jpg</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     LET'S GET IN TOUCH
+══════════════════════════════ -->
+<section class="contact-sec reveal">
+  <div class="work-together-label">Work together</div>
+  <div class="contact-title">Let's get in touch</div>
+  <div class="contact-sub">Open for brand deals · collabs · UGC</div>
+
+  <div class="contact-links">
+
+    <!-- UPDATE: change href to your actual Instagram link -->
+    <a class="contact-link" href="https://instagram.com/ellindabb" target="_blank" rel="noopener">
+      <div class="contact-icon-circle icon-ig">
+        <!-- Instagram icon -->
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </div>
+      <div class="contact-info">
+        <span class="contact-platform">Instagram</span>
+        <span class="contact-handle">@ellindabb</span>
+      </div>
+    </a>
+
+    <!-- UPDATE: change href to your actual TikTok link -->
+    <a class="contact-link" href="https://tiktok.com/@el.lindabb" target="_blank" rel="noopener">
+      <div class="contact-icon-circle icon-tk">
+        <!-- TikTok icon -->
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.77 1.52V6.75a4.85 4.85 0 01-1-.06z"/>
+        </svg>
+      </div>
+      <div class="contact-info">
+        <span class="contact-platform">TikTok</span>
+        <span class="contact-handle">@el.lindabb</span>
+      </div>
+    </a>
+
+    <!-- UPDATE: change to your actual email -->
+    <a class="contact-link" href="mailto:bbsugca@gmail.com">
+      <div class="contact-icon-circle icon-gm">
+        <!-- Gmail / email icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#c8384a"/>
+        </svg>
+      </div>
+      <div class="contact-info">
+        <span class="contact-platform">Email</span>
+        <span class="contact-handle">bbsugca@gmail.com</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
